@@ -110,3 +110,4 @@ yarn.lock
 
 # Automatically Generated Files
 test/**/index.*
+/docs
