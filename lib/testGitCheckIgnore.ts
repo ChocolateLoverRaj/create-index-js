@@ -15,3 +15,6 @@ gitCheckIgnore(new Set(['LICENSE', 'index.js', 'dist', 'dist/index.js']))
     console.error(e)
     process.exit(1)
   })
+
+// FIXME: Don't do this
+export default undefined

@@ -1,9 +1,10 @@
 {
   "scripts": {
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "npm run build:index-js && npm run build:tsc",
     "lint": "eslint .",
-    "build": "tsc",
-    "build:docs": "typedoc lib/index.ts"
+    "build:index-js": "create-index-js -n lib",
+    "build:tsc": "tsc",
+    "build:docs": "typedoc lib/index.js"
   },
   "name": "@programmerraj/create-index-js",
   "description": "Creates an index.js file which exports all the files from a directory.",
@@ -15,6 +16,7 @@
     "url": "git+https://github.com/ChocolateLoverRaj/create-index-js.git"
   },
   "devDependencies": {
+    "@programmerraj/create-index-js": "^1.0.3",
     "@types/last-element": "^1.0.0",
     "@types/stream-to-array": "^2.3.0",
     "@types/stream-write": "^2.0.0",
@@ -54,5 +56,6 @@
   ],
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "exports": "./dist/index.js"
 }
