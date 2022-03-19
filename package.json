@@ -7,7 +7,7 @@
   },
   "name": "@programmerraj/create-index-js",
   "description": "Creates an index.js file which exports all the files from a directory.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "homepage": "https://github.com/ChocolateLoverRaj/create-index-js#readme",
   "license": "MIT",
   "repository": {
