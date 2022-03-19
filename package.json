@@ -48,7 +48,7 @@
     "url": "https://github.com/ChocolateLoverRaj"
   },
   "type": "module",
-  "bin": "./dist/cli",
+  "bin": "./dist/cli.js",
   "files": [
     "dist"
   ],
