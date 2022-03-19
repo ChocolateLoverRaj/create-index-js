@@ -29,3 +29,6 @@ new Command()
     }
   })
   .parse()
+
+// FIXME: Don't do this
+export default undefined

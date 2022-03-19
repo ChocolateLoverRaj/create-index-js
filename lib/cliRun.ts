@@ -1,5 +1,5 @@
 import Options from './Options.js'
-import * as OraMultiPromise from './ora-multi-promise/index.js'
+import * as OraMultiPromise from './oraMultiPromise/index.js'
 import run from './run/run.js'
 import { makeQueryablePromise } from 'promise-with-state'
 import { ProcessDirResult } from './run/index.js'

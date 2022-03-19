@@ -28,7 +28,7 @@ export { default as isOdd } from './isOdd.js'
 export * as fruits from './fruits/index.js'
 ```
 
-## Usage
+## CLI Usage
 ```bash
 create-index-js myDir
 ```
@@ -38,3 +38,23 @@ Use `-w` or `--watch` option to re-create file when files get created or deleted
 
 ### Other Options
 Do `-h` or `--help` to see all options
+
+## Programmatic Usage
+All helper files are exported, but the files that are probably useful are `run/run.js` and `runWithWatch/runWithWatch.js`.
+
+### Run
+```js
+import { run } from '@programmerraj/create-index-js'
+
+run.run(options)
+```
+
+### Run in Watch Mode
+```js
+import { runWithWatch } from '@programmerraj/create-index-js'
+
+runWithWatch.runWithWatch(options)
+```
+
+### Docs
+TypeScript types are published. You can see the online TypeDocs at https://chocolateloverraj.github.io/create-index-js.
