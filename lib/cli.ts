@@ -1,4 +1,4 @@
-#!usr/bin/node
+#!/usr/bin/env node
 import { Command } from 'commander'
 import { normalize } from 'path'
 import cliRun from './cliRun.js'
