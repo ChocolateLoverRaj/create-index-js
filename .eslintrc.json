@@ -1,0 +1,18 @@
+{
+  "root": true,
+  "extends": [
+    "standard-with-typescript"
+  ],
+  "ignorePatterns": [
+    "/dist"
+  ],
+  "parserOptions": {
+    "project": "./eslintTsconfig.json"
+  },
+  "rules": {
+    "max-len": [
+      "error",
+      100
+    ]
+  }
+}

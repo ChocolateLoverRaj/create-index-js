@@ -1,0 +1,16 @@
+{
+  "include": [
+    "./lib"
+  ],
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./lib",
+    "esModuleInterop": false,
+    "strictNullChecks": true,
+    "module": "NodeNext",
+    "declaration": true,
+    "downlevelIteration": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2020"
+  }
+}

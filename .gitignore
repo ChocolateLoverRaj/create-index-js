@@ -102,3 +102,11 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Package Manager Lock Files
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# Automatically Generated Files
+test/**/index.*

@@ -1,0 +1,58 @@
+{
+  "scripts": {
+    "prepublishOnly": "npm run build",
+    "lint": "eslint .",
+    "build": "tsc",
+    "build:docs": "typedoc lib/index.ts"
+  },
+  "name": "@programmerraj/create-index-js",
+  "description": "Creates an index.js file which exports all the files from a directory.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/ChocolateLoverRaj/create-index-js#readme",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChocolateLoverRaj/create-index-js.git"
+  },
+  "devDependencies": {
+    "@types/last-element": "^1.0.0",
+    "@types/stream-to-array": "^2.3.0",
+    "@types/stream-write": "^2.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.0.1",
+    "@typescript-eslint/parser": "^4.0.0",
+    "eslint": "^7.12.1",
+    "eslint-config-standard-with-typescript": "21.0.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1 || ^5.0.0",
+    "release-it": "^14.12.5",
+    "typedoc": "^0.21.10",
+    "typescript": "^4.7.0-dev.20220312"
+  },
+  "dependencies": {
+    "chokidar": "^3.5.3",
+    "commander": "^9.0.0",
+    "console-log-tree": "^1.2.1",
+    "emitter2": "^4.1.0",
+    "last-element": "^1.0.1",
+    "never": "^1.1.0",
+    "ora": "^6.1.0",
+    "promise-with-state": "^1.1.1",
+    "resolve-value": "^1.0.1",
+    "stream-to-array": "^2.3.0",
+    "stream-to-string": "^1.2.0",
+    "stream-write": "^2.0.0"
+  },
+  "author": {
+    "name": "Rajas Paranjpe",
+    "url": "https://github.com/ChocolateLoverRaj"
+  },
+  "type": "module",
+  "bin": "./dist/cli",
+  "files": [
+    "./dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
