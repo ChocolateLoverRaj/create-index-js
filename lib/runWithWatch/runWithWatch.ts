@@ -15,7 +15,7 @@ const runWithWatch = ({
   recursive,
   force,
   indexFileExtension,
-  tsNodeNext,
+  importExtension,
   extensions
 }: Options): RunWithWatchReturn => {
   let ready = false
@@ -28,7 +28,7 @@ const runWithWatch = ({
           force,
           indexFileExtension,
           subDirsToInclude: subDirsWithIndexFiles,
-          tsNodeNext
+          importExtension
         }))
       }
       createIndexForDir()

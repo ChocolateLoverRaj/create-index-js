@@ -3,7 +3,7 @@ interface Options {
   recursive: boolean
   force: boolean
   indexFileExtension: string
-  tsNodeNext: boolean
+  importExtension?: string
   extensions: string[]
 }
 

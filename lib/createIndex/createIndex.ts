@@ -9,7 +9,7 @@ const createIndex = async ({
   force,
   subDirsToInclude,
   indexFileExtension,
-  tsNodeNext
+  importExtension
 }: Options): Promise<boolean> => {
   const indexFileName = `index${indexFileExtension}`
   const path = join(dir, indexFileName)
@@ -39,11 +39,11 @@ const createIndex = async ({
   }
   const fileStr = [
     ...files.map(({ nameWithoutExtension, extension }) => {
-      const fileName = `${nameWithoutExtension}${tsNodeNext ? '.js' : extension}`
+      const fileName = `${nameWithoutExtension}${importExtension ?? extension}`
       return `export { default as ${nameWithoutExtension} } from './${fileName}'`
     }),
     ...[...subDirsToInclude].map(subDir =>
-      `export * as ${subDir} from './${subDir}/${indexFileName}'`)
+      `export * as ${subDir} from './${subDir}/index${importExtension ?? indexFileExtension}'`)
   ]
     .map(str => `${str}\n`)
     .join('')

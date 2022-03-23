@@ -6,7 +6,7 @@ interface Options {
   subDirsToInclude: Set<string>
   force: boolean
   indexFileExtension: string
-  tsNodeNext: boolean
+  importExtension?: string
 }
 
 export default Options
