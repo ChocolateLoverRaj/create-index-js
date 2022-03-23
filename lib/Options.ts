@@ -5,7 +5,7 @@ interface Options {
   extensions: string[]
   force: boolean
   indexFileExtension: string
-  tsNodeNext: boolean
+  importExtension?: string
 }
 
 export default Options

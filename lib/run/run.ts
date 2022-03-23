@@ -33,7 +33,7 @@ const run = (options: Options): ProcessDirResult => {
           .map(({ dir }) => basename(dir))),
         force: options.force,
         indexFileExtension: options.indexFileExtension,
-        tsNodeNext: options.tsNodeNext
+        importExtension: options.importExtension
       })
     })()
     return {

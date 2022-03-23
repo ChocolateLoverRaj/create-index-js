@@ -9,7 +9,7 @@ const cliRunWithWatch = ({
   extensions,
   force,
   indexFileExtension,
-  tsNodeNext
+  importExtension
 }: Options): void => {
   const { topDir } = runWithWatch({
     recursive,
@@ -17,7 +17,7 @@ const cliRunWithWatch = ({
     extensions,
     force,
     indexFileExtension,
-    tsNodeNext
+    importExtension
   })
 
   // TODO: Nicer looking logging
