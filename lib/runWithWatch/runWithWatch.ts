@@ -5,18 +5,18 @@ import Dir from './Dir.js'
 import RunWithWatchReturn from './RunWithWatchReturn.js'
 import createIndex from '../createIndex/createIndex.js'
 import { emit, toPromise } from 'emitter2'
-import getFilesToImportFromFiles from './getFilesToImportFromFiles.js'
 import splitFileFromExtension from '../splitFileFromExtension.js'
 import getParentDir from './getParentDir.js'
 import never from 'never'
+import { Stats } from 'fs'
+import minimatchAll from 'minimatch-all'
 
 const runWithWatch = ({
-  dir,
-  recursive,
+  dirs,
   force,
   indexFileExtension,
   importExtension,
-  extensions
+  files
 }: Options): RunWithWatchReturn => {
   let ready = false
   const handleDirChanges = (path: string, dir: Dir): void => {
@@ -24,7 +24,10 @@ const runWithWatch = ({
       const createIndexForDir = (): void => {
         emit(dir.onProcess, createIndex({
           dir: path,
-          files: getFilesToImportFromFiles(extensions, dir.files),
+          dirs,
+          files: [...dir.files]
+            .filter(([, dir]) => dir === undefined)
+            .map(([name]) => name),
           force,
           indexFileExtension,
           subDirsToInclude: subDirsWithIndexFiles,
@@ -94,7 +97,7 @@ const runWithWatch = ({
   }
 
   const handleUnlink = (path: string, isDir: boolean): void => {
-    const relativePath = relative(dir, path)
+    const relativePath = relative(process.cwd(), path)
     const parentDir = getParentDir(topDir, relativePath)
     if (parentDir === undefined) {
       // This is possible
@@ -107,20 +110,28 @@ const runWithWatch = ({
     parentDir.files.delete(fileName)
     emit(parentDir.onUnlink, fileName, isDir)
   }
-  const fsWatcher = watch(dir, {
-    depth: recursive ? undefined : 1,
-    ignored: path => {
-      const fileName = basename(path)
-      if (fileName.includes('.')) {
-        const fileAndExtension = splitFileFromExtension(extensions, fileName)
-        if (fileAndExtension === undefined) return true
-        if (fileAndExtension.nameWithoutExtension === 'index') return true
+
+  const fsWatcher = watch(process.cwd(), {
+    ignored: ((path: string, stats?: Stats) => {
+      const relativePath = relative(process.cwd(), path)
+      const includeDir = minimatchAll(relativePath, dirs) as boolean
+      const includeFile = minimatchAll(relativePath, files) as boolean
+      if (stats !== undefined) {
+        if (stats.isDirectory() && !includeDir) return true
+        if (stats.isFile()) {
+          if (!includeFile) return true
+          const fileName = basename(path)
+          if (fileName.includes('.')) {
+            const fileAndExtension = splitFileFromExtension(fileName)
+            if (fileAndExtension.nameWithoutExtension === 'index') return true
+          }
+        }
       }
-      return false
-    }
+      return !(includeDir || includeFile)
+    }) as any
   })
     .on('add', path => {
-      const relativePath = relative(dir, path)
+      const relativePath = relative(process.cwd(), path)
       const fileName = basename(relativePath)
       const parentDir = getParentDir(topDir, relativePath) ?? never()
       parentDir.files.set(fileName, undefined)
@@ -133,8 +144,8 @@ const runWithWatch = ({
       handleUnlink(path, true)
     })
     .on('addDir', path => {
-      if (path === dir) return
-      const relativePath = relative(dir, path)
+      if (path === process.cwd()) return
+      const relativePath = relative(process.cwd(), path)
       const fileName = basename(relativePath)
       const parentDir = getParentDir(topDir, relativePath) ?? never()
       const newDir: Dir = {
@@ -150,10 +161,9 @@ const runWithWatch = ({
     .once('ready', () => {
       ready = true
     })
-  handleDirChanges(dir, topDir)
+  handleDirChanges(process.cwd(), topDir)
 
   const returnObj: RunWithWatchReturn = {
-    dir,
     topDir,
     fsWatcher,
     disposed: false

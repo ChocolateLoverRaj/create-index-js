@@ -1,8 +1,13 @@
 interface Options {
-  dir: string
-  recursive: boolean
+  /**
+   * Glob patterns of dirs
+   */
+  dirs: string[]
   watch: boolean
-  extensions: string[]
+  /**
+   * Glob patterns of files
+   */
+  files: string[]
   force: boolean
   indexFileExtension: string
   importExtension?: string

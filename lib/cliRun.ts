@@ -28,7 +28,6 @@ const cliRun = (options: Options): void => {
       name: `${basename(dir)} ${(createdIndexFile as boolean) ? '\u{2714}' : '\u{274C}'}`,
       children: subDirs.map(dirs => getTree(dirs))
     })
-    // const mappedDirs = recursiveMap<string>(dirs, dir => basename(dir)) as Dirs
     const tree = getTree(result)
     logTree.log(tree)
   })

@@ -1,0 +1,3 @@
+**/*.+(js|jsx|ts|tsx)
+!/util/sideEffect.ts
+!/util/worker.ts
