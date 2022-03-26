@@ -5,7 +5,8 @@
     "build:index-js": "create-index-js -n lib",
     "build:tsc": "tsc",
     "build:docs": "typedoc lib/index.js",
-    "spelling": "cspell --gitignore \"**\" \".github/**\""
+    "spelling": "cspell --gitignore \"**\" \".github/**\"",
+    "test": "node dist/cli -c dirs.txt --filesConfig files.txt test -i \"\""
   },
   "name": "@programmerraj/create-index-js",
   "description": "Creates an index.js file which exports all the files from a directory.",

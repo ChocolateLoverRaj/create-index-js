@@ -8,14 +8,16 @@ const cliRunWithWatch = ({
   files,
   force,
   indexFileExtension,
-  importExtension
+  importExtension,
+  rootDir
 }: Options): void => {
   const { topDir } = runWithWatch({
     dirs,
     files,
     force,
     indexFileExtension,
-    importExtension
+    importExtension,
+    rootDir
   })
 
   // TODO: Nicer looking logging

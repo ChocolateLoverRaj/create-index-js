@@ -9,7 +9,14 @@ import minimatchAll from 'minimatch-all'
 /**
  * This function is useful for using programmatically
  */
-const run = (options: Options): ProcessDirResult => {
+const run = ({
+  dirs,
+  files,
+  force,
+  indexFileExtension,
+  rootDir,
+  importExtension
+}: Options): ProcessDirResult => {
   const processDir = (dir: string): ProcessDirResult => {
     const filesPromise = readdir(dir, { withFileTypes: true })
     const subDirsPromise = (async (): Promise<ProcessDirResult[]> => {
@@ -22,21 +29,22 @@ const run = (options: Options): ProcessDirResult => {
       const subDirs = await resolveValue(subDirsPromise)
       return await createIndex({
         dir,
-        dirs: options.dirs,
+        dirs,
         files: (await filesPromise)
           .filter(file => file.isFile())
           .map(file => file.name)
           .filter(name => name.slice(0, -extname(name).length) !== 'index')
           .filter(name => {
-            const path = sep + relative(process.cwd(), join(dir, name))
-            return minimatchAll(path, options.files)
+            const path = sep + relative(rootDir, join(dir, name))
+            return minimatchAll(path, files)
           }),
         subDirsToInclude: new Set(subDirs
           .filter(({ createdIndexFile }) => createdIndexFile)
           .map(({ dir }) => basename(dir))),
-        force: options.force,
-        indexFileExtension: options.indexFileExtension,
-        importExtension: options.importExtension
+        force,
+        indexFileExtension,
+        importExtension,
+        rootDir
       })
     })()
     return {
@@ -45,7 +53,7 @@ const run = (options: Options): ProcessDirResult => {
       subDirs: subDirsPromise
     }
   }
-  return processDir(process.cwd())
+  return processDir(rootDir)
 }
 
 export default run
