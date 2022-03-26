@@ -1,8 +1,7 @@
-import FileAndExtension from '../FileAndExtension.js'
-
 interface Options {
   dir: string
-  files: FileAndExtension[]
+  dirs: readonly string[]
+  files: readonly string[]
   subDirsToInclude: Set<string>
   force: boolean
   indexFileExtension: string

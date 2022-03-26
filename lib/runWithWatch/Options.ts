@@ -1,10 +1,9 @@
 interface Options {
-  dir: string
-  recursive: boolean
+  dirs: string[]
   force: boolean
   indexFileExtension: string
   importExtension?: string
-  extensions: string[]
+  files: string[]
 }
 
 export default Options

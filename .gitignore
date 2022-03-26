@@ -109,6 +109,6 @@ pnpm-lock.yaml
 yarn.lock
 
 # Automatically Generated Files
-test/**/index.*
+/test/**/index.js
 /lib/**/index.js
 /docs

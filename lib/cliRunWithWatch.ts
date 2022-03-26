@@ -1,20 +1,18 @@
 import Options from './Options.js'
 import Dir from './runWithWatch/Dir.js'
 import runWithWatch from './runWithWatch/runWithWatch.js'
-import { join, relative } from 'path'
+import { join, sep } from 'path'
 
 const cliRunWithWatch = ({
-  dir,
-  recursive,
-  extensions,
+  dirs,
+  files,
   force,
   indexFileExtension,
   importExtension
 }: Options): void => {
   const { topDir } = runWithWatch({
-    recursive,
-    dir,
-    extensions,
+    dirs,
+    files,
     force,
     indexFileExtension,
     importExtension
@@ -43,7 +41,7 @@ const cliRunWithWatch = ({
       }
     })
   }
-  logDir(relative(process.cwd(), dir), topDir)
+  logDir(sep, topDir)
 }
 
 export default cliRunWithWatch
