@@ -23,3 +23,19 @@ jobs:
           run_install: true
       - name: Run Lint
         run: pnpm lint
+  spelling:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Repo
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16.13"
+      - name: Setup Pnpm
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: "6.32"
+          run_install: true
+      - name: Check Spelling
+        run: pnpm spelling

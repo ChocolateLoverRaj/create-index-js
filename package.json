@@ -4,7 +4,8 @@
     "lint": "eslint .",
     "build:index-js": "create-index-js -n lib",
     "build:tsc": "tsc",
-    "build:docs": "typedoc lib/index.js"
+    "build:docs": "typedoc lib/index.js",
+    "spelling": "cspell --gitignore \"**\" \".github/**\""
   },
   "name": "@programmerraj/create-index-js",
   "description": "Creates an index.js file which exports all the files from a directory.",
@@ -24,6 +25,7 @@
     "@types/stream-write": "^2.0.0",
     "@typescript-eslint/eslint-plugin": "^4.0.1",
     "@typescript-eslint/parser": "^4.0.0",
+    "cspell": "^5.19.3",
     "eslint": "^7.12.1",
     "eslint-config-standard-with-typescript": "21.0.1",
     "eslint-plugin-import": "^2.22.1",
