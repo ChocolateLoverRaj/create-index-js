@@ -6,6 +6,7 @@ interface Options {
   force: boolean
   indexFileExtension: string
   importExtension?: string
+  rootDir: string
 }
 
 export default Options

@@ -16,7 +16,8 @@ const runWithWatch = ({
   force,
   indexFileExtension,
   importExtension,
-  files
+  files,
+  rootDir
 }: Options): RunWithWatchReturn => {
   let ready = false
   const handleDirChanges = (path: string, dir: Dir): void => {
@@ -31,7 +32,8 @@ const runWithWatch = ({
           force,
           indexFileExtension,
           subDirsToInclude: subDirsWithIndexFiles,
-          importExtension
+          importExtension,
+          rootDir
         }))
       }
       createIndexForDir()
@@ -97,7 +99,7 @@ const runWithWatch = ({
   }
 
   const handleUnlink = (path: string, isDir: boolean): void => {
-    const relativePath = relative(process.cwd(), path)
+    const relativePath = relative(rootDir, path)
     const parentDir = getParentDir(topDir, relativePath)
     if (parentDir === undefined) {
       // This is possible
@@ -111,9 +113,9 @@ const runWithWatch = ({
     emit(parentDir.onUnlink, fileName, isDir)
   }
 
-  const fsWatcher = watch(process.cwd(), {
+  const fsWatcher = watch(rootDir, {
     ignored: ((path: string, stats?: Stats) => {
-      const relativePath = relative(process.cwd(), path)
+      const relativePath = relative(rootDir, path)
       const includeDir = minimatchAll(relativePath, dirs) as boolean
       const includeFile = minimatchAll(relativePath, files) as boolean
       if (stats !== undefined) {
@@ -131,7 +133,7 @@ const runWithWatch = ({
     }) as any
   })
     .on('add', path => {
-      const relativePath = relative(process.cwd(), path)
+      const relativePath = relative(rootDir, path)
       const fileName = basename(relativePath)
       const parentDir = getParentDir(topDir, relativePath) ?? never()
       parentDir.files.set(fileName, undefined)
@@ -144,8 +146,8 @@ const runWithWatch = ({
       handleUnlink(path, true)
     })
     .on('addDir', path => {
-      if (path === process.cwd()) return
-      const relativePath = relative(process.cwd(), path)
+      if (path === rootDir) return
+      const relativePath = relative(rootDir, path)
       const fileName = basename(relativePath)
       const parentDir = getParentDir(topDir, relativePath) ?? never()
       const newDir: Dir = {
@@ -161,9 +163,10 @@ const runWithWatch = ({
     .once('ready', () => {
       ready = true
     })
-  handleDirChanges(process.cwd(), topDir)
+  handleDirChanges(rootDir, topDir)
 
   const returnObj: RunWithWatchReturn = {
+    rootDir,
     topDir,
     fsWatcher,
     disposed: false

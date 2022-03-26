@@ -13,12 +13,13 @@ const createIndex = async ({
   force,
   subDirsToInclude,
   indexFileExtension,
-  importExtension
+  importExtension,
+  rootDir
 }: Options): Promise<boolean> => {
   const indexFileName = getIndexFileName(indexFileExtension)
   const path = join(dir, indexFileName)
   if (
-    !(minimatchAll(sep + relative(process.cwd(), dir), dirs) as boolean) ||
+    !(minimatchAll(sep + relative(rootDir, dir), dirs) as boolean) ||
     files.length + subDirsToInclude.size === 0
   ) {
     await unlinkIfIgnored(path)
